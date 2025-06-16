@@ -34,6 +34,8 @@ import {
   shobizzy,
   alter,
   accesswealthImage,
+  chalktalk,
+  sponsorlytix,
 } from "../assets";
 import img from "./lax.png";
 import img1 from "./vic.jpg";
@@ -264,6 +266,23 @@ const testimonials = [
 
 const projects = [
   {
+    name: "ChalkTalk",
+    description:
+      "Personalized Learning Software for ELA & MATH. REAL-TIME, REMOTE OR IN-PERSON.",
+    tags: [
+      {
+        name: "react",
+        color: "blue-text-gradient",
+      },
+      {
+        name: "Style components",
+        color: "pink-text-gradient",
+      },
+    ],
+    image: chalktalk,
+    source_code_link: "https://chalktalk.com/",
+  },
+  {
     name: "Sellfire",
     description:
       "Get an AI-powered Sales Machine that will deliver proven results in 90 days",
@@ -435,6 +454,22 @@ const projects = [
     image: chowdeck,
     source_code_link:
       "https://apps.apple.com/us/app/chowdeck-food-delivery/id1530676376",
+  },
+  {
+    name: "Sponsorlytix",
+    description: "Post your sports with AI & Computer Vision",
+    tags: [
+      {
+        name: "react",
+        color: "blue-text-gradient",
+      },
+      {
+        name: "Style components",
+        color: "pink-text-gradient",
+      },
+    ],
+    image: sponsorlytix,
+    source_code_link: "https://sponsorlytix.ai/",
   },
 ];
 

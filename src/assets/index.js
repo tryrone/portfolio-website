@@ -43,6 +43,9 @@ import shobizzy from "./shobizzy.png";
 import alter from "./alter.png";
 import accesswealthImage from "./access-wealth.png";
 
+import chalktalk from "./chalktalk.png";
+import sponsorlytix from "./sponsorlytix.png";
+
 export {
   logo,
   backend,
@@ -84,4 +87,6 @@ export {
   shobizzy,
   alter,
   accesswealthImage,
+  chalktalk,
+  sponsorlytix,
 };
