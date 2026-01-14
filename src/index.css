@@ -1,4 +1,5 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -8,9 +9,55 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Poppins", sans-serif;
+  font-family: "Inter", sans-serif;
   scroll-behavior: smooth;
   color-scheme: dark;
+}
+
+body {
+  @apply bg-background-dark text-white font-sans antialiased selection:bg-primary selection:text-background-dark;
+}
+
+.grain-overlay {
+  background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDtjg9IDOOrZEphcEfLp4gwW1Z-fi4zVje2u7y7JEH_AfWIuM8aC5i5RPy-5TqL_Ga_-FaXLu-osxVHRiWctVNSOfATXsuXzzD8EMm4-I4Vh3oVw5WnrDX2v_j3aZ9AhRpS-jnbyld9r-b46YMBNy1KWvA-Fsiw8GxWK8zq2OqGsWsHhCKlUVdVGzKir19AbyE65JI26IQDsgnrxMu3fejddfdmhcgC3RaryiNHipSnq3iPS4w4uMC8J7hryQeg86o4rLH1nhwqcWQx');
+  background-repeat: repeat;
+  opacity: 0.04;
+  pointer-events: none;
+}
+
+.text-outline {
+  -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.15);
+  color: transparent;
+}
+
+.hero-glow {
+  background: radial-gradient(circle at 50% 50%, rgba(226, 241, 59, 0.03) 0%, transparent 70%);
+}
+
+.glass-card {
+  background: rgba(18, 18, 18, 0.6);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  transition: all 0.3s ease;
+}
+
+.glass-card:hover {
+  border-color: rgba(226, 241, 59, 0.3);
+  background: rgba(28, 28, 28, 0.6);
+}
+
+.timeline-line {
+  background: linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.2) 15%, rgba(255,255,255,0.2) 85%, rgba(255,255,255,0) 100%);
+}
+
+.dot-glow {
+  box-shadow: 0 0 15px rgba(226, 241, 59, 0.4);
+}
+
+.world-map-bg {
+  background-image: radial-gradient(circle at 2px 2px, rgba(255,255,255,0.05) 1px, transparent 0);
+  background-size: 24px 24px;
+  mask-image: linear-gradient(to bottom, transparent, black 40%, black 60%, transparent);
 }
 
 .hash-span {

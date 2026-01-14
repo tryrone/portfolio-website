@@ -1,11 +1,3 @@
-import logo from "./tegalogo.png";
-import backend from "./web-settings.png";
-import creator from "./eco-car.gif";
-import mobile from "./physics.gif";
-import web from "./html.gif";
-import github from "./github.png";
-import menu from "./menu.svg";
-import close from "./close.svg";
 
 import css from "./tech/css.png";
 import docker from "./tech/py.png";
@@ -28,7 +20,6 @@ import tesla from "./company/verivo.jpeg";
 import sponsor from "./company/Sponsorlytix.jpeg";
 import pally from "./company/Pallymate.jpeg";
 
-import carrent from "./lazer.png";
 import jobit from "./sap.png";
 import tripguide from "./todo.png";
 import lvd from "./lvd.png";
@@ -47,14 +38,6 @@ import chalktalk from "./chalktalk.png";
 import sponsorlytix from "./sponsorlytix.png";
 
 export {
-  logo,
-  backend,
-  creator,
-  mobile,
-  web,
-  github,
-  menu,
-  close,
   css,
   docker,
   figma,
@@ -74,7 +57,6 @@ export {
   starbucks,
   tesla,
   sponsor,
-  carrent,
   jobit,
   lvd,
   uburu,
