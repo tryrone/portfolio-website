@@ -179,7 +179,7 @@ const experiences = [
     company_name: "CHOWDECK",
     icon: tesla,
     iconBg: "#fff",
-    date: "May 2020 - Sep 2020",
+    date: "Mar 2022 - Dec 2022",
     points: [
       "Helped create apple store and google play-store profile to make updates seamless.",
       "Helped setup Microsoft code push to enable OTA pushes , which improves how users receive updates and quick fixes on their application.",
@@ -192,7 +192,7 @@ const experiences = [
     company_name: "GitStart (YC S19)",
     icon: shopify,
     iconBg: "#000",
-    date: "Apr 2020 - Sep 2020",
+    date: "Aug 2019 – Dec 2019",
     points: [
       "Location: Remote",
       "Skills: Hasura · Java script · HTML5 · Node.js · Git · Express.js · GraphQL · Apollo GraphQL",
@@ -203,7 +203,7 @@ const experiences = [
     company_name: "Hollaport Technologies Ltd",
     icon: meta,
     iconBg: "#fff",
-    date: "Apr 2020 - Sep 2020",
+    date: "Jan 2020 – Apr 2021",
     points: [
       "Took control of the Instant messaging feature which made use of socket.io connection, handled socket reconnection on timeout which improved the instant messaging flow.",
       "Created a framework to migrate legacy code to modern design patterns, by shifting from class-based to functional components and migrating the store management process from old redux tools to the latest hooks.",
@@ -214,21 +214,21 @@ const experiences = [
   },
   {
     title: "Frontend Developer",
-    company_name: "Sponsorlytix - Part-time",
+    company_name: "Sponsorlytix - (Part-time)",
     icon: sponsor,
     iconBg: "#fff",
-    date: "May 2020 - Sep 2020",
+    date: "Feb 2019 - Aug 2019",
     points: [
       "Location: London, England, United Kingdom",
       "Skills: Java script · HTML5 · Node.js · Git · Team Management · Express.js · GraphQL · Apollo GraphQL",
     ],
   },
   {
-    title: "Frontend Developer",
+    title: "Frontend Developer (Junior Role)",
     company_name: "Pallymate · Freelance",
     icon: pally,
     iconBg: "#6800af",
-    date: "Oct 2019 - Jan 2020",
+    date: "Jun 2018 - Jan 2020",
     points: ["Location: Nigeria", "Skills: Java script · HTML5 · Git"],
   },
 ];
