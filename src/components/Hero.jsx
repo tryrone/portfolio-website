@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { socialLinks } from "../constants";
+import profilePhoto from "../assets/tega-profile.jpg";
 
 const TITLES = [
   "Full-Stack Engineer",
@@ -104,7 +105,7 @@ const Hero = () => {
             className="mx-auto mb-8 w-24 h-24 rounded-full overflow-hidden border-2 border-white/10 shadow-glow"
           >
             <img
-              src="https://media.licdn.com/dms/image/v2/D4D03AQEY0bh3MTXvHg/profile-displayphoto-scale_400_400/B4DZsiZFGhJAAk-/0/1765808567689?e=1776297600&v=beta&t=rF5Ehuj251T0lVdaMgFj46aqrGN4xvYZ3RcMoQyMB9c"
+              src={profilePhoto}
               alt="Tega Oboraruvwe"
               className="w-full h-full object-cover"
             />
