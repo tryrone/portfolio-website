@@ -1,307 +1,231 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
+import { socialLinks } from "../constants";
 
-const FAQItem = ({ question, answer, isOpen, onToggle }) => {
-  return (
-    <div className="bg-white dark:bg-card-dark border border-slate-200 dark:border-border-dark p-6 rounded-2xl">
-      <div className="flex items-center justify-between mb-4">
-        <h3 className="text-lg font-semibold text-slate-900 dark:text-white">
-          {question}
-        </h3>
-        <button
-          onClick={onToggle}
-          className={`${
-            isOpen
-              ? "bg-primary text-black"
-              : "bg-slate-100 dark:bg-border-dark text-slate-900 dark:text-white"
-          } px-4 py-2 rounded-full flex items-center gap-2 text-sm font-bold transition-all`}
-        >
-          {isOpen ? (
-            <>
-              Hide{" "}
-              <span className="material-symbols-outlined text-sm">
-                expand_less
-              </span>
-            </>
-          ) : (
-            <>
-              Show{" "}
-              <span className="material-symbols-outlined text-sm">
-                expand_more
-              </span>
-            </>
-          )}
-        </button>
-      </div>
-      {isOpen && (
-        <motion.p
-          initial={{ opacity: 0, height: 0 }}
-          animate={{ opacity: 1, height: "auto" }}
-          exit={{ opacity: 0, height: 0 }}
-          className="text-slate-600 dark:text-slate-400 leading-relaxed"
-        >
-          {answer}
-        </motion.p>
-      )}
-    </div>
-  );
-};
+const RESUME_URL = "https://drive.google.com/file/d/1tOkBQUws5CSp4fhJ6WRrNI1fjkVLgWp1/view?usp=drive_link";
 
 const Contact = () => {
-  const [openFAQ, setOpenFAQ] = useState(0); // First FAQ open by default
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    description: "",
+    message: "",
   });
-
-  const faqs = [
-    {
-      question: "What types of projects do you handle?",
-      answer:
-        "I handle a wide range of projects — from web applications to mobile apps, whether frontend, backend, or full-stack. I customize solutions based on your business needs and technical requirements.",
-    },
-    {
-      question: "How fast can you deliver?",
-      answer:
-        "Delivery time depends on project scope and complexity. Typically, I can deliver MVP versions within 2-4 weeks, while full-featured applications may take 2-3 months. I always provide realistic timelines during our initial consultation.",
-    },
-    {
-      question: "Can I track the project progress in real time?",
-      answer:
-        "Yes! I use modern project management tools and provide regular updates through your preferred communication channel. You'll have visibility into milestones, sprints, and deliverables throughout the development process.",
-    },
-    {
-      question: "What is your pricing model?",
-      answer:
-        "I offer flexible pricing models — fixed-price for well-defined projects, hourly rates for ongoing work, and retainer agreements for long-term partnerships. Let's discuss what works best for your project and budget.",
-    },
-  ];
-
-  const handleFAQToggle = (index) => {
-    setOpenFAQ(openFAQ === index ? null : index);
-  };
+  const [sending, setSending] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Handle form submission
-    const mailtoLink = `mailto:tegararuvwe@gmail.com?subject=Contact from Portfolio&body=Name: ${formData.name}%0D%0AEmail: ${formData.email}%0D%0A%0D%0AWork Description:%0D%0A${formData.description}`;
+    setSending(true);
+    const mailtoLink = `mailto:${socialLinks.email}?subject=Hey Tega — Let's Work Together&body=Name: ${encodeURIComponent(formData.name)}%0D%0AEmail: ${encodeURIComponent(formData.email)}%0D%0A%0D%0A${encodeURIComponent(formData.message)}`;
     window.location.href = mailtoLink;
+    setTimeout(() => setSending(false), 1000);
   };
 
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   return (
-    <section
-      className="max-w-7xl mx-auto px-6 py-24 space-y-32 relative z-10"
-      id="contact"
-    >
-      {/* FAQ Section */}
-      <section className="grid grid-cols-1 lg:grid-cols-12 gap-12" id="faq">
-        <div className="lg:col-span-5">
-          <h2 className="text-4xl lg:text-5xl font-display font-bold leading-tight mb-6 text-white">
-            Got Questions? We've <br /> Got Answers.
-          </h2>
-          <p className="text-slate-500 dark:text-slate-400 text-lg max-w-md">
-            Everything you need to know about working with me — fast, simple,
-            and transparent.
-          </p>
-        </div>
-        <div className="lg:col-span-7 space-y-4">
-          {faqs.map((faq, index) => (
-            <FAQItem
-              key={index}
-              question={faq.question}
-              answer={faq.answer}
-              isOpen={openFAQ === index}
-              onToggle={() => handleFAQToggle(index)}
-            />
-          ))}
-        </div>
-      </section>
+    <section className="relative z-10" id="contact">
+      <div className="section-divider mb-24"></div>
 
-      {/* Statistics Section */}
-      <section className="relative py-20 overflow-hidden">
-        <div className="absolute inset-0 world-map-bg pointer-events-none opacity-50"></div>
-        <div className="relative z-10 grid grid-cols-1 md:grid-cols-3 gap-12 text-center md:text-left">
-          <div>
-            <div className="text-5xl lg:text-7xl font-display font-bold mb-4 text-white">
-              +120
-            </div>
-            <p className="text-slate-500 dark:text-slate-400">
-              Simple and effective design solutions delivered globally.
-            </p>
-          </div>
-          <div>
-            <div className="text-5xl lg:text-7xl font-display font-bold mb-4 text-white">
-              8+ Years
-            </div>
-            <p className="text-slate-500 dark:text-slate-400">
-              We design interfaces that are easy to use and master.
-            </p>
-          </div>
-          <div>
-            <div className="text-5xl lg:text-7xl font-display font-bold mb-4 text-white">
-              +50
-            </div>
-            <p className="text-slate-500 dark:text-slate-400">
-              Collaborating with individuals and teams across continents.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Contact Section */}
-      <section className="grid grid-cols-1 lg:grid-cols-2 gap-20">
-        <div>
-          <h2 className="text-4xl lg:text-6xl font-display font-bold leading-tight mb-8 text-white">
-            Our Idea, My Design — Let's Connect.
+      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+        {/* Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="text-center mb-20"
+        >
+          <span className="text-[11px] font-bold text-primary/70 uppercase tracking-[0.3em] mb-4 block">
+            Get In Touch
+          </span>
+          <h2 className="text-4xl lg:text-6xl font-display font-bold text-white mb-6">
+            Let's build something{" "}
+            <span className="text-gradient-primary">together</span>.
           </h2>
-          <p className="text-slate-500 dark:text-slate-400 text-lg mb-12">
-            Whether it's designing a sleek user interface or writing code that
-            brings it to life, I'm ready to collaborate.
+          <p className="text-white/30 text-lg max-w-xl mx-auto leading-relaxed">
+            Have a project in mind or just want to connect? I'd love to hear
+            from you.
           </p>
-          <div className="space-y-8">
+        </motion.div>
+
+        {/* Content Grid */}
+        <div className="grid lg:grid-cols-5 gap-12 lg:gap-20">
+          {/* Left - Contact Info */}
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="lg:col-span-2 space-y-10"
+          >
+            {/* Email */}
             <div>
-              <span className="block text-sm font-medium uppercase tracking-widest text-slate-400 dark:text-slate-500 mb-4">
-                Stay Connected
+              <span className="text-[10px] font-bold text-white/20 uppercase tracking-[0.2em] block mb-3">
+                Email
               </span>
-              <div className="flex gap-4">
+              <a
+                href={`mailto:${socialLinks.email}`}
+                className="text-white/60 hover:text-primary transition-colors text-lg font-medium"
+              >
+                {socialLinks.email}
+              </a>
+            </div>
+
+            {/* Resume */}
+            <div>
+              <span className="text-[10px] font-bold text-white/20 uppercase tracking-[0.2em] block mb-3">
+                Resume
+              </span>
+              <a
+                href={RESUME_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 text-white/60 hover:text-primary transition-colors font-medium"
+              >
+                <span className="material-symbols-outlined text-lg">description</span>
+                Download CV
+              </a>
+            </div>
+
+            {/* Social Links */}
+            <div>
+              <span className="text-[10px] font-bold text-white/20 uppercase tracking-[0.2em] block mb-4">
+                Connect
+              </span>
+              <div className="flex gap-3">
                 <a
-                  className="w-10 h-10 rounded-full border border-slate-200 dark:border-border-dark flex items-center justify-center hover:bg-primary hover:text-black transition-all text-white"
-                  href="https://x.com/King_Tyrrent"
+                  href={socialLinks.github}
                   target="_blank"
                   rel="noopener noreferrer"
+                  className="w-11 h-11 rounded-xl border border-white/10 flex items-center justify-center text-white/30 hover:text-primary hover:border-primary/30 transition-all duration-300"
+                  aria-label="GitHub"
+                >
+                  <span className="material-symbols-outlined text-lg">code</span>
+                </a>
+                <a
+                  href={socialLinks.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-11 h-11 rounded-xl border border-white/10 flex items-center justify-center text-white/30 hover:text-primary hover:border-primary/30 transition-all duration-300"
+                  aria-label="LinkedIn"
+                >
+                  <span className="material-symbols-outlined text-lg">person</span>
+                </a>
+                <a
+                  href={socialLinks.twitter}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-11 h-11 rounded-xl border border-white/10 flex items-center justify-center text-white/30 hover:text-primary hover:border-primary/30 transition-all duration-300"
                   aria-label="Twitter"
                 >
-                  <span className="material-symbols-outlined text-xl">
-                    close
-                  </span>
+                  <span className="material-symbols-outlined text-lg">tag</span>
                 </a>
-                {/* <a
-                  className="w-10 h-10 rounded-full border border-slate-200 dark:border-border-dark flex items-center justify-center hover:bg-primary hover:text-black transition-all text-white"
-                  href="https://dribbble.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="Dribbble"
-                >
-                  <span className="material-symbols-outlined text-xl">facebook</span>
-                </a> */}
-                <a
-                  className="w-10 h-10 rounded-full border border-slate-200 dark:border-border-dark flex items-center justify-center hover:bg-primary hover:text-black transition-all text-white"
-                  href="https://github.com/tryrone"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="Share"
-                >
-                  <span className="material-symbols-outlined text-xl">
-                    share
-                  </span>
-                </a>
-                {/* <a
-                  className="w-10 h-10 rounded-full border border-slate-200 dark:border-border-dark flex items-center justify-center hover:bg-primary hover:text-black transition-all text-white"
-                  href="https://instagram.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="Instagram"
-                >
-                  <span className="material-symbols-outlined text-xl">photo_camera</span>
-                </a> */}
               </div>
             </div>
-          </div>
-        </div>
-        <div className="space-y-6">
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <input
-                className="w-full bg-slate-100 dark:bg-card-dark border-transparent focus:border-primary focus:ring-primary rounded-xl p-4 text-slate-900 dark:text-white transition-all outline-none"
-                placeholder="Name"
-                required
-                type="text"
-                name="name"
-                value={formData.name}
-                onChange={handleChange}
-              />
-              <input
-                className="w-full bg-slate-100 dark:bg-card-dark border-transparent focus:border-primary focus:ring-primary rounded-xl p-4 text-slate-900 dark:text-white transition-all outline-none"
-                placeholder="Email address"
-                required
-                type="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-              />
-            </div>
-            <textarea
-              className="w-full bg-slate-100 dark:bg-card-dark border-transparent focus:border-primary focus:ring-primary rounded-xl p-4 text-slate-900 dark:text-white transition-all outline-none resize-none"
-              placeholder="Work Description"
-              required
-              rows="6"
-              name="description"
-              value={formData.description}
-              onChange={handleChange}
-            ></textarea>
-            <button
-              className="w-full bg-primary text-black font-bold py-4 rounded-xl hover:opacity-90 transition-all active:scale-[0.98]"
-              type="submit"
-            >
-              Submit
-            </button>
-          </form>
-        </div>
-      </section>
+          </motion.div>
 
-      {/* Footer */}
-      <footer className="pt-16 border-t border-slate-200 dark:border-border-dark">
-        <div className="flex flex-col md:flex-row justify-between items-center gap-8">
-          <nav className="flex flex-wrap justify-center gap-x-8 gap-y-4">
-            <a
-              className="hover:text-primary transition-colors text-white"
-              href="#"
-            >
-              Home
-            </a>
-            <a
-              className="hover:text-primary transition-colors text-white"
-              href="#about"
-            >
-              About
-            </a>
-            <a
-              className="hover:text-primary transition-colors text-white"
-              href="#work"
-            >
-              Portfolio
-            </a>
-            <a
-              className="hover:text-primary transition-colors text-white"
-              href="#work"
-            >
-              Blog
-            </a>
-            <a
-              className="hover:text-primary transition-colors text-white"
-              href="#contact"
-            >
-              Contact
-            </a>
-          </nav>
-          <div className="text-slate-500 dark:text-slate-500 text-sm">
-            Copyright © Tega Oboraruvwe 2024
+          {/* Right - Form */}
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="lg:col-span-3"
+          >
+            <form onSubmit={handleSubmit} className="space-y-5">
+              <div className="grid sm:grid-cols-2 gap-5">
+                <div>
+                  <label className="text-[10px] font-bold text-white/20 uppercase tracking-[0.2em] block mb-2">
+                    Name
+                  </label>
+                  <input
+                    type="text"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    required
+                    placeholder="Your name"
+                    className="w-full bg-card-dark border border-white/5 rounded-xl px-5 py-3.5 text-white text-sm placeholder-white/15 focus:border-primary/30 focus:outline-none transition-colors"
+                  />
+                </div>
+                <div>
+                  <label className="text-[10px] font-bold text-white/20 uppercase tracking-[0.2em] block mb-2">
+                    Email
+                  </label>
+                  <input
+                    type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    required
+                    placeholder="you@company.com"
+                    className="w-full bg-card-dark border border-white/5 rounded-xl px-5 py-3.5 text-white text-sm placeholder-white/15 focus:border-primary/30 focus:outline-none transition-colors"
+                  />
+                </div>
+              </div>
+              <div>
+                <label className="text-[10px] font-bold text-white/20 uppercase tracking-[0.2em] block mb-2">
+                  Message
+                </label>
+                <textarea
+                  name="message"
+                  value={formData.message}
+                  onChange={handleChange}
+                  required
+                  rows="5"
+                  placeholder="Tell me about your project..."
+                  className="w-full bg-card-dark border border-white/5 rounded-xl px-5 py-3.5 text-white text-sm placeholder-white/15 focus:border-primary/30 focus:outline-none transition-colors resize-none"
+                ></textarea>
+              </div>
+              <button
+                type="submit"
+                disabled={sending}
+                className="btn-primary w-full py-4 text-sm tracking-wide flex items-center justify-center gap-2 disabled:opacity-50"
+              >
+                {sending ? "Opening Mail Client..." : "Send Message"}
+                <span className="material-symbols-outlined text-lg">
+                  {sending ? "hourglass_top" : "send"}
+                </span>
+              </button>
+            </form>
+          </motion.div>
+        </div>
+
+        {/* Footer */}
+        <footer className="mt-32 pt-8 border-t border-white/5">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-6">
+            {/* Logo */}
+            <div className="text-lg font-display font-bold tracking-tighter uppercase flex items-center gap-0.5">
+              Tega
+              <span className="w-1 h-1 bg-primary rounded-full mt-1.5"></span>
+              <span className="text-white/40">DEV</span>
+            </div>
+
+            {/* Nav */}
+            <nav className="flex flex-wrap justify-center gap-x-8 gap-y-3">
+              <a href="#about" className="text-sm text-white/30 hover:text-white transition-colors">
+                About
+              </a>
+              <a href="#experience" className="text-sm text-white/30 hover:text-white transition-colors">
+                Experience
+              </a>
+              <a href="#projects" className="text-sm text-white/30 hover:text-white transition-colors">
+                Projects
+              </a>
+              <a href="#contact" className="text-sm text-white/30 hover:text-white transition-colors">
+                Contact
+              </a>
+            </nav>
+
+            {/* Copyright */}
+            <div className="text-xs text-white/15">
+              © {new Date().getFullYear()} Tega Oboraruvwe
+            </div>
           </div>
-        </div>
-        <div className="mt-8 text-center md:text-left">
-          <p className="text-slate-400 dark:text-slate-600 text-sm italic">
-            Contact Me & Let's Make It Happen.
-          </p>
-        </div>
-      </footer>
+        </footer>
+      </div>
     </section>
   );
 };

@@ -1,117 +1,288 @@
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
+import { socialLinks } from "../constants";
+
+const TITLES = [
+  "Full-Stack Engineer",
+  "Mobile Architect",
+  "Backend Developer",
+  "React Native Expert",
+  "Tech Lead",
+];
+
+const useTypewriter = (words, typingSpeed = 80, deletingSpeed = 40, pauseTime = 2000) => {
+  const [text, setText] = useState("");
+  const [wordIndex, setWordIndex] = useState(0);
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  useEffect(() => {
+    const currentWord = words[wordIndex];
+    let timeout;
+
+    if (!isDeleting && text === currentWord) {
+      timeout = setTimeout(() => setIsDeleting(true), pauseTime);
+    } else if (isDeleting && text === "") {
+      setIsDeleting(false);
+      setWordIndex((prev) => (prev + 1) % words.length);
+    } else {
+      timeout = setTimeout(
+        () => {
+          setText(
+            isDeleting
+              ? currentWord.substring(0, text.length - 1)
+              : currentWord.substring(0, text.length + 1)
+          );
+        },
+        isDeleting ? deletingSpeed : typingSpeed
+      );
+    }
+
+    return () => clearTimeout(timeout);
+  }, [text, isDeleting, wordIndex, words, typingSpeed, deletingSpeed, pauseTime]);
+
+  return text;
+};
+
+const AnimatedCounter = ({ target, suffix = "", duration = 2000 }) => {
+  const [count, setCount] = useState(0);
+  const ref = useRef(null);
+  const [hasAnimated, setHasAnimated] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting && !hasAnimated) {
+          setHasAnimated(true);
+          const startTime = Date.now();
+          const animate = () => {
+            const elapsed = Date.now() - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            const eased = 1 - Math.pow(1 - progress, 3);
+            setCount(Math.floor(eased * target));
+            if (progress < 1) requestAnimationFrame(animate);
+          };
+          requestAnimationFrame(animate);
+        }
+      },
+      { threshold: 0.5 }
+    );
+
+    if (ref.current) observer.observe(ref.current);
+    return () => observer.disconnect();
+  }, [target, duration, hasAnimated]);
+
+  return (
+    <span ref={ref}>
+      {count}
+      {suffix}
+    </span>
+  );
+};
 
 const Hero = () => {
+  const typedText = useTypewriter(TITLES);
+
   return (
     <>
-      <div className="fixed inset-0 grain-overlay z-[60]"></div>
-      <main className="relative z-10 min-h-screen flex flex-col items-center justify-center px-6 pt-10 pb-20">
+      <div className="grain-overlay"></div>
+      <main className="relative min-h-screen flex flex-col items-center justify-center px-6 pt-24 pb-20 overflow-hidden">
+        {/* Background Effects */}
         <div className="absolute inset-0 hero-glow -z-10"></div>
-        <div className="max-w-7xl w-full text-center relative">
-          <div className="flex flex-col items-center mb-16 relative">
-            <div className="flex items-center gap-4 mb-12">
-              <div className="h-[1px] w-8 bg-white/20"></div>
-              <span className="text-[10px] md:text-xs font-bold uppercase tracking-[0.5em] text-white/40">
-                Senior Software Engineer
-              </span>
-              <div className="h-[1px] w-8 bg-white/20"></div>
+        <div className="absolute inset-0 grid-bg-hero -z-10"></div>
+
+        {/* Decorative floating elements */}
+        <div className="absolute top-32 left-[10%] w-2 h-2 bg-primary/30 rounded-full animate-float hidden lg:block"></div>
+        <div className="absolute top-48 right-[15%] w-1.5 h-1.5 bg-primary/20 rounded-full animate-float hidden lg:block" style={{ animationDelay: "2s" }}></div>
+        <div className="absolute bottom-40 left-[20%] w-1 h-1 bg-white/10 rounded-full animate-float hidden lg:block" style={{ animationDelay: "4s" }}></div>
+
+        <div className="max-w-5xl w-full text-center relative z-10">
+          {/* Profile Photo */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.6 }}
+            className="mx-auto mb-8 w-24 h-24 rounded-full overflow-hidden border-2 border-white/10 shadow-glow"
+          >
+            <img
+              src="https://media.licdn.com/dms/image/v2/D4D03AQEY0bh3MTXvHg/profile-displayphoto-scale_400_400/B4DZsiZFGhJAAk-/0/1765808567689?e=1776297600&v=beta&t=rF5Ehuj251T0lVdaMgFj46aqrGN4xvYZ3RcMoQyMB9c"
+              alt="Tega Oboraruvwe"
+              className="w-full h-full object-cover"
+            />
+          </motion.div>
+
+          {/* Status Badge */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="inline-flex items-center gap-3 px-5 py-2 rounded-full border border-white/10 bg-white/[0.03] backdrop-blur-sm mb-10"
+          >
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-400"></span>
+            </span>
+            <span className="text-[11px] font-semibold uppercase tracking-[0.2em] text-white/50">
+              Building What's Next
+            </span>
+          </motion.div>
+
+          {/* Main Heading */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.1 }}
+          >
+            <h1 className="text-5xl sm:text-7xl lg:text-8xl font-display font-bold tracking-tight leading-[0.95] mb-6">
+              <span className="text-white">Hi, I'm </span>
+              <span className="text-gradient-primary">Tega</span>
+            </h1>
+          </motion.div>
+
+          {/* Typewriter Title */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.2 }}
+            className="mb-8"
+          >
+            <div className="text-xl sm:text-2xl lg:text-3xl font-display font-medium text-white/60 h-10">
+              {typedText}
+              <span className="typewriter-cursor"></span>
             </div>
-            <div className="relative inline-block">
-              <div
-                className="absolute -top-12 -left-16 md:-top-24 md:-left-56 w-32 h-40 md:w-56 md:h-72 rounded-3xl overflow-hidden border border-white/10 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.7)] z-20 transition-transform duration-700 hover:scale-105 hover:rotate-[-4deg]"
-                style={{ transform: "rotate(-8deg)" }}
-              >
-                <img
-                  alt="Professional portrait of Tega"
-                  className="w-full h-full object-cover grayscale brightness-75 hover:grayscale-0 transition-all duration-700"
-                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuBSqyYAXvPs1CcoTmSGE78ScWGQSY7QQEB_f5mcDkNkAk4O13327Q1ylSxZR-tUsY6HUlayQoOUokgINue3PJCYd8goL1Z5THFWZjYGAAuZ2K0KXyEzpqFp3X1wfEG23oxo6yIZyRfAHDftK2M9Us_ipRD0isupqe66Vdh_dycGyNjy3MBo3uRpFVMGbBmcEqMD-buXsGsuwdHSgT0s7LHipD5tQjhcv-RzYpjkFIayV6wr6wSUNFYuZRj6qO0twv8yB9OHIOvPcT33"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-background-dark/80 to-transparent"></div>
+          </motion.div>
+
+          {/* Description */}
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.3 }}
+            className="text-base sm:text-lg text-white/35 max-w-2xl mx-auto mb-12 leading-relaxed font-medium"
+          >
+            Senior Software Engineer with 8+ years building scalable web and mobile 
+            applications. From fintech to e-commerce, I architect solutions that 
+            handle millions of transactions.
+          </motion.p>
+
+          {/* CTA Buttons */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.4 }}
+            className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-20"
+          >
+            <a
+              href="#projects"
+              className="btn-primary px-8 py-3.5 text-sm font-bold tracking-wide flex items-center gap-2"
+            >
+              View My Work
+              <span className="material-symbols-outlined text-lg">arrow_forward</span>
+            </a>
+            <a
+              href="#contact"
+              className="btn-outline px-8 py-3.5 text-sm font-bold tracking-wide flex items-center gap-2"
+            >
+              Get In Touch
+              <span className="material-symbols-outlined text-lg">mail</span>
+            </a>
+          </motion.div>
+
+          {/* Stats Row */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.5 }}
+            className="flex flex-wrap items-center justify-center gap-8 sm:gap-16"
+          >
+            <div className="text-center">
+              <div className="text-3xl sm:text-4xl font-display font-black text-white">
+                <AnimatedCounter target={8} suffix="+" />
               </div>
-              <h1 className="text-[3.8rem] md:text-[9.5rem] font-display font-black tracking-tighter leading-[0.82] text-white uppercase relative z-10 flex flex-col items-center">
-                <span className="block">WORK WITH</span>
-                <span className="relative inline-flex items-center">
-                  PURPOSE
-                  <div className="absolute -bottom-1 -right-2 md:-bottom-2 md:-right-24 bg-primary text-background-dark px-4 py-2 md:px-7 md:py-3 rounded-full text-[10px] md:text-sm font-black uppercase tracking-widest flex items-center gap-2 rotate-[6deg] shadow-[0_10px_30px_rgba(226,241,59,0.3)] z-30">
-                    <span className="material-symbols-outlined text-sm md:text-lg">
-                      verified_user
-                    </span>
-                    FULL-STACK
-                  </div>
-                </span>
-                <span className="text-outline">WITH PASSION</span>
-              </h1>
-              <div
-                className="absolute -bottom-8 -right-16 md:-bottom-24 md:-right-52 w-32 h-40 md:w-52 md:h-[272px] rounded-3xl overflow-hidden border border-white/10 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.7)] z-20 transition-transform duration-700 hover:scale-105 hover:rotate-[4deg]"
-                style={{ transform: "rotate(10deg)" }}
-              >
-                <img
-                  alt="Tega smiling"
-                  className="w-full h-full object-cover grayscale brightness-75 hover:grayscale-0 transition-all duration-700"
-                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuBgG3BezPnWEZGEgwA_bFEMCxbal3Uh_rp1ElUbVdxq_Jvur0nY0Yd-EhRPRAgoqYwxM3InFvwMxx9-bOg406fWc-BZ_w2TtBhwHdB4ztVVDZTnu-SSDCtLG6d8Ip_oOrLWzDMfCqZqNWz1-7yd5upYrAaBML8QnZH60KxiDNba6KuZ2q-RtDZj9_G93XectV40sTbzVCiwRxnK4x6ufJbdQtyVeTgjRXGOjem70wWE-1j_K_vtm80Lo6lH59VMgX7PlMh6affJ8PEh"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-background-dark/80 to-transparent"></div>
-              </div>
-            </div>
-          </div>
-          <div className="flex flex-col md:flex-row items-center justify-center gap-12 mt-40">
-            <div className="flex items-center gap-5 bg-white/[0.02] border border-white/10 px-8 py-3 rounded-full backdrop-blur-sm">
-              <div className="flex -space-x-3">
-                <div className="w-12 h-12 rounded-full border-4 border-charcoal overflow-hidden bg-accent-gray shadow-xl">
-                  <img
-                    alt="Client avatar"
-                    className="w-full h-full object-cover"
-                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuA6cEge1t1PyBkKj5ExmtEQepbN3nZJoG_XRiQclQ8WrF7vLI3mOp-IukEhhgn_VGvZmeiWmYcCWhRs1R59sI6Pe_c2_MpeZdLfuuNV-YTTtFclHKIBUyOhxlX2GMptHvs-osMx1yncE5purP779yFKlj0zf2cJmMe_w64_KbkhpMIJt2lu02ryp7aphILde7a6CmbLMng39geEOgcRr0IjFiLmPfVhKyB9bvepQWBlx9Q-bGsp3VbtTYs_ubo3EQjMGto6u8VDeHwr"
-                  />
-                </div>
-                <div className="w-12 h-12 rounded-full border-4 border-charcoal overflow-hidden bg-accent-gray shadow-xl">
-                  <img
-                    alt="Client avatar"
-                    className="w-full h-full object-cover"
-                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuAE-Kvi5J8LsX7ccOc7I9rcZVdKor97t8NqTcs-M6DM65eKQgeGy01a8bn0CAi9K9P-6i5OXTxMHoX8Kmq66WI5_nw7Cqkq3k75ADxG8gwckFiDVeGYj1hZOfZ3M7BpotHNJhH-yA8llVBdlgHXlKD_Z1ehNS_mON4ZE9kjnb2vPCNMKg1o4ma0rUH6AWQDwKA6JyTn3Zv5Ks4uOOzaFNMuu-IIpKVGTZj5rN6h-1MrQh9myz61UAgazIi3Vfj7-HN8c4AF-rNeFo2F"
-                  />
-                </div>
-                <div className="w-12 h-12 rounded-full border-4 border-charcoal bg-white/5 flex items-center justify-center text-[10px] font-black text-white/60 shadow-xl backdrop-blur-md">
-                  +50
-                </div>
-              </div>
-              <div className="text-left">
-                <p className="text-[10px] font-black uppercase tracking-widest text-white">
-                  Trust by Experts
-                </p>
-                <p className="text-[11px] font-medium text-white/30 uppercase tracking-wider">
-                  Top Tier Partners
-                </p>
+              <div className="text-[10px] font-bold text-white/25 uppercase tracking-[0.2em] mt-1">
+                Years Exp
               </div>
             </div>
-            <div className="relative w-full max-w-sm group">
-              <div className="bg-white/[0.02] backdrop-blur-md border border-white/10 rounded-full p-1.5 flex items-center focus-within:border-primary/40 transition-all duration-300 shadow-xl">
-                <input
-                  className="bg-transparent border-none focus:ring-0 text-white placeholder-white/10 px-6 py-2 w-full text-xs font-medium tracking-wide focus:outline-none"
-                  placeholder="Tell me about your project"
-                  type="text"
-                />
-                <button
-                  onClick={() => {
-                    const contactSection = document.getElementById("contact");
-                    if (contactSection) {
-                      contactSection.scrollIntoView({ behavior: "smooth" });
-                    }
-                  }}
-                  className="bg-white text-background-dark px-10 py-3.5 rounded-full font-black text-[10px] uppercase tracking-widest hover:bg-primary transition-all whitespace-nowrap"
-                >
-                  Contact
-                </button>
+            <div className="w-px h-10 bg-white/10 hidden sm:block"></div>
+            <div className="text-center">
+              <div className="text-3xl sm:text-4xl font-display font-black text-white">
+                <AnimatedCounter target={120} suffix="+" />
+              </div>
+              <div className="text-[10px] font-bold text-white/25 uppercase tracking-[0.2em] mt-1">
+                Projects
               </div>
             </div>
-          </div>
+            <div className="w-px h-10 bg-white/10 hidden sm:block"></div>
+            <div className="text-center">
+              <div className="text-3xl sm:text-4xl font-display font-black text-white">
+                <AnimatedCounter target={12} suffix="+" />
+              </div>
+              <div className="text-[10px] font-bold text-white/25 uppercase tracking-[0.2em] mt-1">
+                Companies
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Social Links */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.7, delay: 0.7 }}
+            className="flex items-center justify-center gap-3 mt-12"
+          >
+            <a
+              href={socialLinks.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-white/30 hover:text-primary hover:border-primary/30 transition-all duration-300"
+              aria-label="GitHub"
+            >
+              <span className="material-symbols-outlined text-lg">code</span>
+            </a>
+            <a
+              href={socialLinks.twitter}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-white/30 hover:text-primary hover:border-primary/30 transition-all duration-300"
+              aria-label="Twitter/X"
+            >
+              <span className="material-symbols-outlined text-lg">tag</span>
+            </a>
+            <a
+              href={socialLinks.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-white/30 hover:text-primary hover:border-primary/30 transition-all duration-300"
+              aria-label="LinkedIn"
+            >
+              <span className="material-symbols-outlined text-lg">person</span>
+            </a>
+            <a
+              href={`mailto:${socialLinks.email}`}
+              className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-white/30 hover:text-primary hover:border-primary/30 transition-all duration-300"
+              aria-label="Email"
+            >
+              <span className="material-symbols-outlined text-lg">mail</span>
+            </a>
+          </motion.div>
         </div>
-        <div className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 opacity-30">
-          <span className="text-[9px] uppercase tracking-[0.8em] font-bold">
-            Explore
+
+        {/* Scroll Indicator */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 0.3 }}
+          transition={{ delay: 1.5, duration: 1 }}
+          className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3"
+        >
+          <span className="text-[9px] uppercase tracking-[0.6em] font-semibold text-white/50">
+            Scroll
           </span>
-          <div className="w-[1px] h-20 bg-gradient-to-b from-white via-white/50 to-transparent"></div>
-        </div>
+          <div className="w-5 h-8 rounded-full border border-white/20 flex items-start justify-center p-1">
+            <motion.div
+              animate={{ y: [0, 10, 0] }}
+              transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
+              className="w-1 h-1.5 bg-white/40 rounded-full"
+            />
+          </div>
+        </motion.div>
       </main>
     </>
   );
