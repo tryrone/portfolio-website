@@ -32,6 +32,9 @@ import {
   accesswealthImage,
   chalktalk,
   sponsorlytix,
+  pennytree,
+  borderguide,
+  spree,
 } from "../assets";
 import img from "./lax.png";
 import img1 from "./vic.jpg";
@@ -217,6 +220,42 @@ const testimonials = [
 ];
 
 const projects = [
+  {
+    name: "PennyTree",
+    description:
+      "Financial management application allowing users to track spending across Nigerian bank accounts, with savings goals and linked accounts features.",
+    tags: [
+      { name: "React Native", color: "blue-text-gradient" },
+      { name: "Node.js", color: "pink-text-gradient" },
+    ],
+    image: pennytree,
+    source_code_link: "https://pennytree.netlify.app/",
+    featured: true,
+  },
+  {
+    name: "BorderGuide",
+    description:
+      "Comprehensive travel platform providing essential information on visa requirements, customs regulations, and travel documentation all in one place.",
+    tags: [
+      { name: "React", color: "blue-text-gradient" },
+      { name: "Tailwind CSS", color: "pink-text-gradient" },
+    ],
+    image: borderguide,
+    source_code_link: "https://border-guide.netlify.app/",
+    featured: true,
+  },
+  {
+    name: "Spree",
+    description:
+      "Escrow-protected social commerce platform helping merchants and buyers track products, handle orders, and turn social sales into trusted transactions.",
+    tags: [
+      { name: "React", color: "blue-text-gradient" },
+      { name: "Node.js", color: "pink-text-gradient" },
+    ],
+    image: spree,
+    source_code_link: "https://spree-app.netlify.app/",
+    featured: true,
+  },
   {
     name: "Sabi",
     description:

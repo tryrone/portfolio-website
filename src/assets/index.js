@@ -36,6 +36,9 @@ import accesswealthImage from "./access-wealth.png";
 
 import chalktalk from "./chalktalk.png";
 import sponsorlytix from "./sponsorlytix.png";
+import pennytree from "./pennytree.png";
+import borderguide from "./borderguide.png";
+import spree from "./spree.png";
 
 export {
   css,
@@ -71,4 +74,7 @@ export {
   accesswealthImage,
   chalktalk,
   sponsorlytix,
+  pennytree,
+  borderguide,
+  spree,
 };
