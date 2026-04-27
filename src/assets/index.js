@@ -39,6 +39,7 @@ import sponsorlytix from "./sponsorlytix.png";
 import pennytree from "./pennytree.png";
 import borderguide from "./borderguide.png";
 import spree from "./spree.png";
+import betsclaw from "./betsclaw.png";
 
 export {
   css,
@@ -77,4 +78,5 @@ export {
   pennytree,
   borderguide,
   spree,
+  betsclaw,
 };

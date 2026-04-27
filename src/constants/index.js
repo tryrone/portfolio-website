@@ -35,6 +35,7 @@ import {
   pennytree,
   borderguide,
   spree,
+  betsclaw,
 } from "../assets";
 import img from "./lax.png";
 import img1 from "./vic.jpg";
@@ -221,6 +222,32 @@ const testimonials = [
 
 const projects = [
   {
+    name: "BetsClaw",
+    description:
+      "AI-Powered Betting Ticket Optimizer. Engineered a complex predictive model interface and live data pipeline to analyze, fix, and build winning sports betting tickets, maximizing user edge and ROI.",
+    tags: [
+      { name: "Next.js", color: "blue-text-gradient" },
+      { name: "AI/ML", color: "green-text-gradient" },
+      { name: "Tailwind CSS", color: "pink-text-gradient" },
+    ],
+    image: betsclaw,
+    source_code_link: "https://betsclaw.win/",
+    featured: true,
+  },
+  {
+    name: "BorderGuide",
+    description:
+      "Comprehensive global travel intelligence platform providing real-time data on visa requirements, customs regulations, and documentation. Architected for scalable high-availability access.",
+    tags: [
+      { name: "React", color: "blue-text-gradient" },
+      { name: "TypeScript", color: "green-text-gradient" },
+      { name: "Tailwind CSS", color: "pink-text-gradient" },
+    ],
+    image: borderguide,
+    source_code_link: "https://border-guide.uk/",
+    featured: true,
+  },
+  {
     name: "PennyTree",
     description:
       "Financial management application allowing users to track spending across Nigerian bank accounts, with savings goals and linked accounts features.",
@@ -230,18 +257,6 @@ const projects = [
     ],
     image: pennytree,
     source_code_link: "https://pennytree.netlify.app/",
-    featured: true,
-  },
-  {
-    name: "BorderGuide",
-    description:
-      "Comprehensive travel platform providing essential information on visa requirements, customs regulations, and travel documentation all in one place.",
-    tags: [
-      { name: "React", color: "blue-text-gradient" },
-      { name: "Tailwind CSS", color: "pink-text-gradient" },
-    ],
-    image: borderguide,
-    source_code_link: "https://border-guide.netlify.app/",
     featured: true,
   },
   {
