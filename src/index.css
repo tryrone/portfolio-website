@@ -1573,7 +1573,7 @@ summary::-webkit-details-marker {
   }
   .copy-button {
     font-size: 10px;
-    min-height: 40px;
+    min-height: 44px;
     margin-top: 3px;
   }
   .contact-links {
@@ -1582,7 +1582,7 @@ summary::-webkit-details-marker {
   }
   .contact-links a {
     font-size: 10px;
-    min-height: 35px;
+    min-height: 44px;
   }
   .contact-form {
     border-top: 1px solid #42543d;
@@ -1640,6 +1640,12 @@ summary::-webkit-details-marker {
     outline-color: var(--lime);
   }
 }
+@media (max-width: 480px) {
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+}
 @media (max-width: 370px) {
   h1 {
     font-size: 43px;
@@ -1663,10 +1669,6 @@ summary::-webkit-details-marker {
   }
   .email-link {
     font-size: 18px;
-  }
-  .form-row {
-    grid-template-columns: 1fr;
-    gap: 18px;
   }
   .form-footer {
     flex-direction: column;
