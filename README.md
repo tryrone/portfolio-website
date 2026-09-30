@@ -22,6 +22,7 @@ The redesigned entrypoint is `src/App.jsx`; portfolio copy, experience, and exte
 - All sixteen original project destinations remain, with thirteen in the expandable archive. Links may be unavailable or change independently of this site.
 - The existing generic CV link is preserved.
 - The contact form opens a draft in the visitor's own email app. It does not send through a backend or claim delivery. The direct email link and copy button provide alternatives.
+- Progressive hero and scroll reveals, subtle hover/focus transitions, and disclosure animations respect reduced motion and keep keyboard/anchor-targeted content visible.
 - Native disclosure controls, a skip link, visible keyboard focus, menu state/escape handling, mobile breakpoints, and reduced-motion support are included.
 
 ## Local review status

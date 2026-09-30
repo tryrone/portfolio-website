@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { experience, links, otherProjects, projects } from "./portfolio";
 import { createEmailUrl } from "./utils/contact";
+import { initializeReveals } from "./utils/reveal";
 import portrait from "./assets/tega-profile.jpg";
 import accessScreenshot from "./assets/access-wealth.png";
 
@@ -311,7 +312,7 @@ function ProjectVisual({ id }) {
 
 function CaseStudy({ project }) {
   return (
-    <article className={`case-study case-${project.id}`}>
+    <article className={`case-study case-${project.id}`} data-reveal>
       <ProjectVisual id={project.id} />
       <div className="case-copy">
         <div className="case-meta">
@@ -351,7 +352,7 @@ function Work() {
   return (
     <section id="projects" className="work-section section-anchor">
       <div className="shell">
-        <div className="section-heading">
+        <div className="section-heading" data-reveal>
           <div>
             <p className="eyebrow">01 / SELECTED WORK</p>
             <h2>
@@ -412,7 +413,7 @@ function About() {
           Explore my GitHub
         </ExternalLink>
       </div>
-      <div className="about-copy">
+      <div className="about-copy" data-reveal>
         <p className="about-lead">
           I’m Tega, a software engineer focused on mobile products and the
           systems behind them.
@@ -462,7 +463,7 @@ function About() {
 
 function Experience() {
   const renderRole = (job) => (
-    <article className="experience-row" key={job.company}>
+    <article className="experience-row" key={job.company} data-reveal>
       <p className="experience-date">{job.dates}</p>
       <div>
         <h3>{job.company}</h3>
@@ -474,7 +475,7 @@ function Experience() {
   return (
     <section id="experience" className="experience-section section-anchor">
       <div className="shell">
-        <div className="section-heading">
+        <div className="section-heading" data-reveal>
           <div>
             <p className="eyebrow">03 / EXPERIENCE</p>
             <h2>
@@ -534,7 +535,7 @@ function Contact() {
     <section id="contact" className="contact-section section-anchor">
       <div className="shell">
         <p className="eyebrow">04 / LET’S CONNECT</p>
-        <div className="contact-heading">
+        <div className="contact-heading" data-reveal>
           <h2>
             Have something
             <br />
@@ -637,6 +638,7 @@ function Contact() {
 }
 
 export default function App() {
+  useEffect(() => initializeReveals(), []);
   return (
     <>
       <a className="skip-link" href="#main-content">
