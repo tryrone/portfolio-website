@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Tega.dev">
+  <rect width="64" height="64" rx="16" fill="#172820" />
+  <path
+    d="M17 20.5h27v8H34.5V49h-9V28.5H17z"
+    fill="#f7f8f2"
+  />
+  <circle cx="47" cy="45" r="5" fill="#d5e99a" />
+</svg>
