@@ -6,8 +6,9 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "lint": "eslint src/App.jsx src/main.jsx src/portfolio.js src/utils/contact.js vite.config.js --report-unused-disable-directives --max-warnings 0",
+    "preview": "vite preview",
+    "test": "node --test tests/*.test.js"
   },
   "dependencies": {
     "@emailjs/browser": "^4.3.3",
